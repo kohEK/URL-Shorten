@@ -4,7 +4,7 @@ from rest_framework.authtoken.views import obtain_auth_token
 
 from .views import UserViewSet, UrlViewSet
 
-router = routers.SimpleRouter()
+router = routers.SimpleRouter(trailing_slash=False)
 router.register(r'users', UserViewSet)  # POST(register)
 # router.register(r'users/<int:pk>', UserViewSet)
 # router.register(r'users/deactivate', UserViewSet)  # DELETE
