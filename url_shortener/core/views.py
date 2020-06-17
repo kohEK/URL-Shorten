@@ -1,2 +1,2 @@
 from user.views import UserViewSet
-from urls.views import UrlViewSet
+# from urls.views import UrlViewSet

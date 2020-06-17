@@ -8,4 +8,6 @@ class UrlSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Url
-        fields = ('id', 'origin_url', 'shorten_url', 'created', 'owner')
+        fields = ('id', 'origin_url', 'shorten_url', 'created',
+                  # 'owner',
+                  'count')

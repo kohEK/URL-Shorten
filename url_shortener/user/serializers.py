@@ -5,6 +5,7 @@ from urls.serializers import UrlSerializer
 
 class UserSerializer(serializers.ModelSerializer):
     urls = UrlSerializer(source='urls_set', many=True, read_only=True, )
+    username = serializers.CharField()
     password = serializers.CharField(write_only=True)
 
     class Meta:
