@@ -73,7 +73,7 @@ class UserTestCase(APITestCase):
         print('test_deactivate')
         user = self.users[0]
         self.client.force_authenticate(user=user)
-        response = self.client.delete(f'/api/users/deactivate')
+        response = self.client.delete('/api/users/deactivate')
         print(User.objects.filter(id=user.id))
         self.assertFalse(User.objects.filter(id=user.id).exists())
 
