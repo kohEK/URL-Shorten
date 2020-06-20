@@ -23,4 +23,5 @@ class RedirectViewSet(viewsets.ModelViewSet):
 
     def retrieve(self, request, *args, **kwargs):
         instance = self.get_object()
+        Link.click_counter(instance)
         return redirect(instance.origin_url)

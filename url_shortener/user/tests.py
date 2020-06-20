@@ -91,6 +91,8 @@ class UserTestCase(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertTrue(response.data['token'])
+
+        self.fail()
         # print(response.data) {'token': '58bfda52a379ba71a9d5a7636ed6f8758f2ed1d4', 'user_id': 4}
 
     def test_should_logout(self):

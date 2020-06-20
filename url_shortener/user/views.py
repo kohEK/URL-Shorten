@@ -7,7 +7,9 @@ from rest_framework.authtoken.models import Token
 
 from rest_framework.decorators import action
 from rest_framework import status
+from rest_framework.exceptions import NotAuthenticated
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework.viewsets import GenericViewSet
 
 from user.serializers import UserSerializer
@@ -20,6 +22,7 @@ class UserViewSet(mixins.CreateModelMixin,
                   GenericViewSet):
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
 
     @action(detail=False, methods=['DELETE'])
     def deactivate(self, request, *args, **kwargs):
@@ -41,11 +44,13 @@ class UserViewSet(mixins.CreateModelMixin,
         serializer.is_valid(raise_exception=True)
         username = serializer.validated_data['username']
         password = serializer.validated_data['password']
+
         print(username, password)
         user = authenticate(request=request,
                             username=username, password=password)
-
-        print('UserId:', user.id)
+        if user is None:
+            raise NotAuthenticated
+        # print('UserId:', user.id)
 
         token, created = Token.objects.get_or_create(user=user)
         return Response({
@@ -57,13 +62,14 @@ class UserViewSet(mixins.CreateModelMixin,
     def logout(self, request):
         # permission_classes = (AllowAny,)
         print(request.user)
-        try:
-            request.user.auth_token.delete()
-        except (AttributeError, ObjectDoesNotExist):
-            pass
-            return Response({'message': "인증되지 않은 유저입니다."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        request.user.auth_token.delete()
+        return Response({"detail": "Successfully logged out."}, status=status.HTTP_200_OK)
 
-        if getattr(settings, 'REST_SESSION_LOGIN', True):
-            django_logout(request)
-            return Response({"detail": "Successfully logged out."},
-                            status=status.HTTP_200_OK)
+        # except (AttributeError, ObjectDoesNotExist):
+        #     pass
+        #     return Response({'message': "인증되지 않은 유저입니다."}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        #
+        # if getattr(settings, 'REST_SESSION_LOGIN', True):
+        #     django_logout(request)
+        #     return Response({"detail": "Successfully logged out."},
+        #                     status=status.HTTP_200_OK)

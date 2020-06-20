@@ -52,8 +52,7 @@ class Link(models.Model):
             result += words[i]
         return result
 
-    # def click_counter(self):
-    #     url = get_object_or_404(Link, pk=self.short_url)
-    #     url.count += 1
-    #     url.save()
-    #     return HttpResponseRedirect(url.origin_url)
+    def click_counter(self):
+        self.count += 1
+        self.save()
+

@@ -34,7 +34,6 @@ INSTALLED_APPS = [
     'user',
     'links',
 
-
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -132,9 +131,11 @@ STATIC_URL = '/static/'
 TEST = False
 
 REST_FRAMEWORK = {
+
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.TokenAuthentication',
     ],
+    'DEFAULT_PAGINATION_CLASS': 'user.paginations.MyPagination',
 
-    'DEFAULT_PAGINATION_CLASS': 'user.paginations.MyPagination'
 }
+# 'DEFAULT_PERMISSION_CLASSES':'rest_framework.permissions.IsAuthenticated',

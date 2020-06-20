@@ -9,7 +9,7 @@ from .views import UserViewSet, LinkViewSet,RedirectViewSet
 router = routers.SimpleRouter(trailing_slash=False)
 router.register(r'users', UserViewSet)  # POST(register)
 router.register(r'urls', LinkViewSet)
-router.register(r'redirect/*', RedirectViewSet)
+router.register(r'urls/redirect/*', RedirectViewSet)
 
 urlpatterns = router.urls
 

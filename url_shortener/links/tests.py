@@ -5,8 +5,6 @@ from rest_framework import status
 from rest_framework.test import APITestCase
 
 
-
-
 class UrlsTestCase(APITestCase):
     pass
     # def setUp(self) -> None:
